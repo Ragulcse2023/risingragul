@@ -3,115 +3,458 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Guitar Sound App - Freesound Samples</title>
+<title>Games Hub: Shuttle Table, Chess, Sudoku</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #222;
+    background: #121212;
     color: #eee;
+    margin: 0; padding: 0;
+  }
+  header {
+    background: #222;
+    padding: 10px 0;
     text-align: center;
-    padding: 2rem;
   }
-  h1 {
-    margin-bottom: 1rem;
+  header h1 {
+    margin: 0;
+    font-weight: normal;
   }
-  .keys {
+  nav {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    background: #333;
   }
-  .key {
-    background: #444;
-    border-radius: 8px;
-    padding: 20px 30px;
-    font-size: 1.2rem;
+  nav button {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
     cursor: pointer;
-    user-select: none;
-    box-shadow: 0 4px 0 #222;
-    transition: background 0.2s, transform 0.1s;
-    width: 100px;
+    background: #444;
+    border: none;
+    color: white;
+    transition: background 0.3s;
   }
-  .key:active,
-  .key.playing {
+  nav button.active, nav button:hover {
     background: #66bb6a;
-    transform: translateY(4px);
-    box-shadow: 0 0 5px #66bb6a;
   }
-  .key kbd {
+  main {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 0 10px 30px;
+    background: #1e1e1e;
+    border-radius: 8px;
+  }
+  section {
+    display: none;
+  }
+  section.active {
     display: block;
-    font-size: 0.9rem;
+  }
+  /* Shuttle Table styles */
+  #pong {
+    background: black;
+    display: block;
+    margin: 20px auto;
+    border: 2px solid #fff;
+    max-width: 100%;
+  }
+  /* Chess styles */
+  table.chess {
+    border-collapse: collapse;
+    margin: 20px auto;
+  }
+  table.chess td {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+  }
+  table.chess td.white {
+    background: #f0d9b5;
+  }
+  table.chess td.black {
+    background: #b58863;
+  }
+  /* Sudoku styles */
+  table.sudoku {
+    border-collapse: collapse;
+    margin: 20px auto;
+  }
+  table.sudoku td {
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+  }
+  table.sudoku input {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    background: #fff;
+    color: #000;
+  }
+  table.sudoku td:nth-child(3), table.sudoku td:nth-child(6) {
+    border-right: 2px solid black;
+  }
+  table.sudoku tr:nth-child(3) td, table.sudoku tr:nth-child(6) td {
+    border-bottom: 2px solid black;
+  }
+  table.sudoku input.error {
+    background: #f88;
+  }
+  button.check-btn {
+    display: block;
+    margin: 15px auto 30px;
+    padding: 8px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #66bb6a;
+    border: none;
+    color: white;
+    border-radius: 5px;
+  }
+  p.instructions {
+    text-align: center;
+    margin-top: 0;
     color: #ccc;
-    margin-bottom: 0.5rem;
   }
 </style>
 </head>
 <body>
 
-<h1>🎸 Guitar Sound App (Freesound.org Samples)</h1>
-<p>Press the keys or click the buttons to play guitar chords</p>
+<header>
+  <h1>Games Hub</h1>
+</header>
+<nav>
+  <button id="tab-pong" class="active">Shuttle Table</button>
+  <button id="tab-chess">Chess</button>
+  <button id="tab-sudoku">Sudoku</button>
+</nav>
 
-<div class="keys">
-  <div class="key" data-key="A" data-sound="C" title="C Major">
-    <kbd>A</kbd>
-    C Major
-  </div>
-  <div class="key" data-key="S" data-sound="D" title="D Major">
-    <kbd>S</kbd>
-    D Major
-  </div>
-  <div class="key" data-key="D" data-sound="E" title="E Minor">
-    <kbd>D</kbd>
-    E Minor
-  </div>
-  <div class="key" data-key="F" data-sound="G" title="G Major">
-    <kbd>F</kbd>
-    G Major
-  </div>
-  <div class="key" data-key="G" data-sound="A" title="A Minor">
-    <kbd>G</kbd>
-    A Minor
-  </div>
-</div>
+<main>
+  <!-- Shuttle Table Pong -->
+  <section id="pong-section" class="active">
+    <h2 style="text-align:center;">Simple Shuttle Table Game (Pong)</h2>
+    <canvas id="pong" width="600" height="400"></canvas>
+    <p class="instructions">Use <b>W/S</b> for left paddle and <b>Up/Down Arrows</b> for right paddle.</p>
+  </section>
 
-<!-- Audio elements with direct Freesound.org CDN links -->
-<audio id="sound-C" src="https://freesound.org/data/previews/188/188561_3721340-lq.mp3"></audio>
-<audio id="sound-D" src="https://freesound.org/data/previews/411/411642_5121236-lq.mp3"></audio>
-<audio id="sound-E" src="https://freesound.org/data/previews/415/415207_5121236-lq.mp3"></audio>
-<audio id="sound-G" src="https://freesound.org/data/previews/415/415210_5121236-lq.mp3"></audio>
-<audio id="sound-A" src="https://freesound.org/data/previews/415/415211_5121236-lq.mp3"></audio>
+  <!-- Chess -->
+  <section id="chess-section">
+    <h2 style="text-align:center;">Basic Chess Board</h2>
+    <table class="chess" aria-label="Chess board">
+      <tbody>
+        <tr>
+          <td class="black">&#9820;</td><td class="white">&#9822;</td><td class="black">&#9821;</td><td class="white">&#9819;</td>
+          <td class="black">&#9818;</td><td class="white">&#9821;</td><td class="black">&#9822;</td><td class="white">&#9820;</td>
+        </tr>
+        <tr>
+          <td class="white">&#9823;</td><td class="black">&#9823;</td><td class="white">&#9823;</td><td class="black">&#9823;</td>
+          <td class="white">&#9823;</td><td class="black">&#9823;</td><td class="white">&#9823;</td><td class="black">&#9823;</td>
+        </tr>
+        <tr><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td></tr>
+        <tr><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td></tr>
+        <tr><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td></tr>
+        <tr><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td></tr>
+        <tr>
+          <td class="black">&#9817;</td><td class="white">&#9817;</td><td class="black">&#9817;</td><td class="white">&#9817;</td>
+          <td class="black">&#9817;</td><td class="white">&#9817;</td><td class="black">&#9817;</td><td class="white">&#9817;</td>
+        </tr>
+        <tr>
+          <td class="white">&#9814;</td><td class="black">&#9816;</td><td class="white">&#9815;</td><td class="black">&#9813;</td>
+          <td class="white">&#9812;</td><td class="black">&#9815;</td><td class="white">&#9816;</td><td class="black">&#9814;</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Sudoku -->
+  <section id="sudoku-section">
+    <h2 style="text-align:center;">Simple Sudoku</h2>
+    <table class="sudoku" id="sudoku-table" aria-label="Sudoku board">
+      <tbody>
+        <!-- grid generated by JS -->
+      </tbody>
+    </table>
+    <button class="check-btn" id="check-btn">Check Sudoku</button>
+  </section>
+</main>
 
 <script>
-  function playSound(soundId) {
-    const audio = document.getElementById("sound-" + soundId);
-    if (!audio) return;
-    audio.currentTime = 0;
-    audio.play();
+// Tab switching logic
+const tabs = {
+  pong: document.getElementById('tab-pong'),
+  chess: document.getElementById('tab-chess'),
+  sudoku: document.getElementById('tab-sudoku'),
+};
+const sections = {
+  pong: document.getElementById('pong-section'),
+  chess: document.getElementById('chess-section'),
+  sudoku: document.getElementById('sudoku-section'),
+};
+function activateTab(name) {
+  for (const key in tabs) {
+    tabs[key].classList.toggle('active', key === name);
+    sections[key].classList.toggle('active', key === name);
+  }
+}
+tabs.pong.onclick = () => activateTab('pong');
+tabs.chess.onclick = () => activateTab('chess');
+tabs.sudoku.onclick = () => activateTab('sudoku');
+
+// ------------------
+// Pong Game code
+// ------------------
+const canvas = document.getElementById('pong');
+const ctx = canvas.getContext('2d');
+
+const paddleWidth = 10, paddleHeight = 100;
+let leftPaddleY = canvas.height/2 - paddleHeight/2;
+let rightPaddleY = canvas.height/2 - paddleHeight/2;
+const paddleSpeed = 8;
+
+const ballRadius = 10;
+let ballX = canvas.width/2;
+let ballY = canvas.height/2;
+let ballSpeedX = 5;
+let ballSpeedY = 3;
+
+const keys = {};
+
+document.addEventListener('keydown', e => { keys[e.key] = true; });
+document.addEventListener('keyup', e => { keys[e.key] = false; });
+
+function drawRect(x, y, w, h, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, w, h);
+}
+
+function drawCircle(x, y, r, color) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI*2);
+  ctx.fill();
+}
+
+function drawNet() {
+  for(let i = 0; i < canvas.height; i += 30) {
+    drawRect(canvas.width/2 - 1, i, 2, 20, 'white');
+  }
+}
+
+function update() {
+  if(tabs.pong.classList.contains('active')) {
+    // Move paddles
+    if(keys['w'] && leftPaddleY > 0) leftPaddleY -= paddleSpeed;
+    if(keys['s'] && leftPaddleY + paddleHeight < canvas.height) leftPaddleY += paddleSpeed;
+    if(keys['ArrowUp'] && rightPaddleY > 0) rightPaddleY -= paddleSpeed;
+    if(keys['ArrowDown'] && rightPaddleY + paddleHeight < canvas.height) rightPaddleY += paddleSpeed;
+
+    // Move ball
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+
+    // Top & bottom collision
+    if(ballY + ballRadius > canvas.height || ballY - ballRadius < 0) {
+      ballSpeedY = -ballSpeedY;
+    }
+
+    // Paddle collision
+    if(ballX - ballRadius < paddleWidth) {
+      if(ballY > leftPaddleY && ballY < leftPaddleY + paddleHeight) {
+        ballSpeedX = -ballSpeedX;
+        // Add some speed variation
+        const deltaY = ballY - (leftPaddleY + paddleHeight/2);
+        ballSpeedY = deltaY * 0.3;
+      } else if(ballX - ballRadius < 0) {
+        resetBall();
+      }
+    }
+    if(ballX + ballRadius > canvas.width - paddleWidth) {
+      if(ballY > rightPaddleY && ballY < rightPaddleY + paddleHeight) {
+        ballSpeedX = -ballSpeedX;
+        const deltaY = ballY - (rightPaddleY + paddleHeight/2);
+        ballSpeedY = deltaY * 0.3;
+      } else if(ballX + ballRadius > canvas.width) {
+        resetBall();
+      }
+    }
+  }
+}
+
+function resetBall() {
+  ballX = canvas.width/2;
+  ballY = canvas.height/2;
+  // Random initial direction
+  ballSpeedX = 5 * (Math.random() > 0.5 ? 1 : -1);
+  ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
+}
+
+function render() {
+  if(tabs.pong.classList.contains('active')) {
+    drawRect(0, 0, canvas.width, canvas.height, 'black');
+    drawNet();
+    drawRect(0, leftPaddleY, paddleWidth, paddleHeight, 'white');
+    drawRect(canvas.width - paddleWidth, rightPaddleY, paddleWidth, paddleHeight, 'white');
+    drawCircle(ballX, ballY, ballRadius, 'white');
+  }
+}
+
+function gameLoop() {
+  update();
+  render();
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+
+// ------------------
+// Sudoku code
+// ------------------
+
+const sudokuTable = document.getElementById('sudoku-table').querySelector('tbody');
+
+const sampleSudoku = [
+  [5, 3, 0, 0, 7, 0, 0, 0, 0],
+  [6, 0, 0, 1, 9, 5, 0, 0, 0],
+  [0, 9, 8, 0, 0, 0, 0, 6, 0],
+  [8, 0, 0, 0, 6, 0, 0, 0, 3],
+  [4, 0, 0, 8, 0, 3, 0, 0, 1],
+  [7, 0, 0, 0, 2, 0, 0, 0, 6],
+  [0, 6, 0, 0, 0, 0, 2, 8, 0],
+  [0, 0, 0, 4, 1, 9, 0, 0, 5],
+  [0, 0, 0, 0, 8, 0, 0, 7, 9]
+];
+
+function createSudokuGrid() {
+  sudokuTable.innerHTML = '';
+  for(let r=0; r<9; r++) {
+    const tr = document.createElement('tr');
+    for(let c=0; c<9; c++) {
+      const td = document.createElement('td');
+      const val = sampleSudoku[r][c];
+      if(val !== 0) {
+        td.textContent = val;
+        td.style.fontWeight = 'bold';
+        td.style.color = '#666';
+      } else {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.maxLength = 1;
+        input.setAttribute('aria-label', `Row ${r+1} Column ${c+1}`);
+        input.addEventListener('input', e => {
+          const v = e.target.value;
+          if(!/^[1-9]$/.test(v)) e.target.value = '';
+        });
+        td.appendChild(input);
+      }
+      // Bold border for 3x3 blocks
+      if (c === 2 || c === 5) td.style.borderRight = '2px solid black';
+      if (r === 2 || r === 5) td.style.borderBottom = '2px solid black';
+      tr.appendChild(td);
+    }
+    sudokuTable.appendChild(tr);
+  }
+}
+createSudokuGrid();
+
+function checkSudoku() {
+  // Clear previous errors
+  sudokuTable.querySelectorAll('input').forEach(input => input.classList.remove('error'));
+
+  // Read grid values
+  let grid = [];
+  for(let r=0; r<9; r++) {
+    grid[r] = [];
+    for(let c=0; c<9; c++) {
+      const cell = sudokuTable.rows[r].cells[c];
+      if(cell.textContent) {
+        grid[r][c] = parseInt(cell.textContent);
+      } else {
+        const val = cell.querySelector('input').value;
+        grid[r][c] = val ? parseInt(val) : 0;
+      }
+    }
   }
 
-  function playKey(key) {
-    const keyDiv = document.querySelector(`.key[data-key="${key.toUpperCase()}"]`);
-    if (!keyDiv) return;
-    keyDiv.classList.add("playing");
-    const soundId = keyDiv.getAttribute("data-sound");
-    playSound(soundId);
-    setTimeout(() => keyDiv.classList.remove("playing"), 150);
+  let valid = true;
+
+  // Helper functions for checking duplicates
+  function hasDuplicates(arr) {
+    const filtered = arr.filter(v => v !== 0);
+    return new Set(filtered).size !== filtered.length;
   }
 
-  // Click event for buttons
-  document.querySelectorAll(".key").forEach(keyDiv => {
-    keyDiv.addEventListener("click", () => {
-      const soundId = keyDiv.getAttribute("data-sound");
-      playSound(soundId);
-      keyDiv.classList.add("playing");
-      setTimeout(() => keyDiv.classList.remove("playing"), 150);
-    });
-  });
+  // Check rows and mark errors
+  for(let r=0; r<9; r++) {
+    let row = grid[r];
+    if(hasDuplicates(row)) {
+      valid = false;
+      // Highlight errors in row inputs
+      for(let c=0; c<9; c++) {
+        if(row.filter(x => x === row[c]).length > 1 && row[c] !== 0) {
+          const cell = sudokuTable.rows[r].cells[c];
+          if(!cell.textContent) cell.querySelector('input').classList.add('error');
+        }
+      }
+    }
+  }
 
-  // Keyboard event to play sounds
-  window.addEventListener("keydown", e => {
-    playKey(e.key);
-  });
+  // Check columns
+  for(let c=0; c<9; c++) {
+    let col = [];
+    for(let r=0; r<9; r++) col.push(grid[r][c]);
+    if(hasDuplicates(col)) {
+      valid = false;
+      // Highlight errors in column inputs
+      for(let r=0; r<9; r++) {
+        if(col.filter(x => x === col[r]).length > 1 && col[r] !== 0) {
+          const cell = sudokuTable.rows[r].cells[c];
+          if(!cell.textContent) cell.querySelector('input').classList.add('error');
+        }
+      }
+    }
+  }
+
+  // Check 3x3 boxes
+  for(let boxRow=0; boxRow<3; boxRow++) {
+    for(let boxCol=0; boxCol<3; boxCol++) {
+      let boxVals = [];
+      for(let r=0; r<3; r++) {
+        for(let c=0; c<3; c++) {
+          boxVals.push(grid[boxRow*3 + r][boxCol*3 + c]);
+        }
+      }
+      if(hasDuplicates(boxVals)) {
+        valid = false;
+        // Highlight box errors in inputs
+        for(let r=0; r<3; r++) {
+          for(let c=0; c<3; c++) {
+            let rr = boxRow*3 + r;
+            let cc = boxCol*3 + c;
+            let val = grid[rr][cc];
+            if(boxVals.filter(x => x === val).length > 1 && val !== 0) {
+              const cell = sudokuTable.rows[rr].cells[cc];
+              if(!cell.textContent) cell.querySelector('input').classList.add('error');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  if(valid) {
+    alert('Congratulations! Sudoku is valid so far.');
+  } else {
+    alert('There are errors in the Sudoku. Incorrect or duplicate values highlighted.');
+  }
+}
+
+document.getElementById('check-btn').onclick = checkSudoku;
 </script>
 
 </body>
