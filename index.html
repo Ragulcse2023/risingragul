@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Guitar Sound App</title>
+<title>Guitar Sound App - Freesound Samples</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
     user-select: none;
     box-shadow: 0 4px 0 #222;
     transition: background 0.2s, transform 0.1s;
-    width: 80px;
+    width: 100px;
   }
   .key:active,
   .key.playing {
@@ -48,7 +48,7 @@
 </head>
 <body>
 
-<h1>🎸 Guitar Sound App</h1>
+<h1>🎸 Guitar Sound App (Freesound.org Samples)</h1>
 <p>Press the keys or click the buttons to play guitar chords</p>
 
 <div class="keys">
@@ -74,11 +74,12 @@
   </div>
 </div>
 
-<audio id="sound-C" src="https://actions.google.com/sounds/v1/animals/guitar_strum_01.ogg"></audio>
-<audio id="sound-D" src="https://actions.google.com/sounds/v1/animals/guitar_strum_02.ogg"></audio>
-<audio id="sound-E" src="https://actions.google.com/sounds/v1/animals/guitar_strum_03.ogg"></audio>
-<audio id="sound-G" src="https://actions.google.com/sounds/v1/animals/guitar_strum_04.ogg"></audio>
-<audio id="sound-A" src="https://actions.google.com/sounds/v1/animals/guitar_strum_05.ogg"></audio>
+<!-- Audio elements with direct Freesound.org CDN links -->
+<audio id="sound-C" src="https://freesound.org/data/previews/188/188561_3721340-lq.mp3"></audio>
+<audio id="sound-D" src="https://freesound.org/data/previews/411/411642_5121236-lq.mp3"></audio>
+<audio id="sound-E" src="https://freesound.org/data/previews/415/415207_5121236-lq.mp3"></audio>
+<audio id="sound-G" src="https://freesound.org/data/previews/415/415210_5121236-lq.mp3"></audio>
+<audio id="sound-A" src="https://freesound.org/data/previews/415/415211_5121236-lq.mp3"></audio>
 
 <script>
   function playSound(soundId) {
@@ -97,7 +98,7 @@
     setTimeout(() => keyDiv.classList.remove("playing"), 150);
   }
 
-  // Click event
+  // Click event for buttons
   document.querySelectorAll(".key").forEach(keyDiv => {
     keyDiv.addEventListener("click", () => {
       const soundId = keyDiv.getAttribute("data-sound");
@@ -107,7 +108,7 @@
     });
   });
 
-  // Keyboard event
+  // Keyboard event to play sounds
   window.addEventListener("keydown", e => {
     playKey(e.key);
   });
