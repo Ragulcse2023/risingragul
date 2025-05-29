@@ -515,6 +515,13 @@ tabs.sudoku.onclick = () => activateTab('sudoku');
 })();
 
 </script>
+<footer style="background:#222; color:#ccc; text-align:center; padding:15px 0; margin-top:40px;">
+  <p>&copy; 2019 - <span id="current-year"></span> <strong>risingragul</strong>. All rights reserved. Since 2019.</p>
+</footer>
+<script>
+  // Auto-update current year
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
 
 </body>
 </html>
