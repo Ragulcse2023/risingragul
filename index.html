@@ -1,156 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Games Hub: Shuttle Table, Chess, Sudoku</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: #eee;
-    margin: 0; padding: 0;
-  }
-  header {
-    background: #222;
-    padding: 10px 0;
-    text-align: center;
-  }
-  header h1 {
-    margin: 0;
-    font-weight: normal;
-  }
-  nav {
-    display: flex;
-    justify-content: center;
-    background: #333;
-  }
-  nav button {
-    flex: 1;
-    padding: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    background: #444;
-    border: none;
-    color: white;
-    transition: background 0.3s;
-  }
-  nav button.active, nav button:hover {
-    background: #66bb6a;
-  }
-  main {
-    max-width: 700px;
-    margin: 20px auto;
-    padding: 0 10px 30px;
-    background: #1e1e1e;
-    border-radius: 8px;
-  }
-  section {
-    display: none;
-  }
-  section.active {
-    display: block;
-  }
-  /* Shuttle Table styles */
-  #pong {
-    background: black;
-    display: block;
-    margin: 20px auto;
-    border: 2px solid #fff;
-    max-width: 100%;
-  }
-  /* Chess styles */
-  table.chess {
-    border-collapse: collapse;
-    margin: 20px auto;
-    user-select: none;
-    outline: none;
-  }
-  table.chess td {
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 40px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  table.chess td.white {
-    background: #f0d9b5;
-  }
-  table.chess td.black {
-    background: #b58863;
-  }
-  table.chess td.selected {
-    outline: 3px solid #66bb6a;
-  }
-  table.chess td.possible-move {
-    background-color: #a0d468 !important;
-  }
-  /* Sudoku styles */
-  table.sudoku {
-    border-collapse: collapse;
-    margin: 20px auto;
-    background: #222;
-    border-radius: 5px;
-    box-shadow: 0 0 10px #33cc66aa;
-  }
-  table.sudoku td {
-    border: 1px solid #444;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    background: #333;
-    position: relative;
-  }
-  table.sudoku td:nth-child(3), table.sudoku td:nth-child(6) {
-    border-right: 3px solid #66bb6a;
-  }
-  table.sudoku tr:nth-child(3) td, table.sudoku tr:nth-child(6) td {
-    border-bottom: 3px solid #66bb6a;
-  }
-  table.sudoku input {
-    width: 38px;
-    height: 38px;
-    font-size: 20px;
-    text-align: center;
-    border: none;
-    background: #222;
-    color: #66bb6a;
-    font-weight: bold;
-    outline: none;
-    transition: background-color 0.3s;
-  }
-  table.sudoku input:focus {
-    background-color: #66bb6a;
-    color: #121212;
-  }
-  table.sudoku input.error {
-    background: #f44336;
-    color: white;
-    font-weight: bold;
-  }
-  button.check-btn {
-    display: block;
-    margin: 15px auto 30px;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    background: #66bb6a;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    transition: background 0.3s;
-  }
-  button.check-btn:hover {
-    background: #57a05a;
-  }
-  p.instructions {
-    text-align: center;
-    margin-top: 0;
-    color: #ccc;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Games Hub: Pong, Schulte Table, Sudoku</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: #eee;
+      margin: 0; padding: 0;
+    }
+    header {
+      background: #222;
+      padding: 10px 0;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: normal;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #333;
+    }
+    nav button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #444;
+      border: none;
+      color: white;
+      transition: background 0.3s;
+    }
+    nav button.active, nav button:hover {
+      background: #66bb6a;
+    }
+    main {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 0 10px 30px;
+      background: #1e1e1e;
+      border-radius: 8px;
+    }
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    /* Pong styles */
+    canvas.pong {
+      background: black;
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #fff;
+      max-width: 100%;
+    }
+    /* Sudoku styles */
+    table.sudoku {
+      border-collapse: collapse;
+      margin: 20px auto;
+      background: #222;
+      border-radius: 5px;
+      box-shadow: 0 0 10px #33cc66aa;
+    }
+    table.sudoku td {
+      border: 1px solid #444;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      background: #333;
+      position: relative;
+    }
+    table.sudoku td:nth-child(3), table.sudoku td:nth-child(6) {
+      border-right: 3px solid #66bb6a;
+    }
+    table.sudoku tr:nth-child(3) td, table.sudoku tr:nth-child(6) td {
+      border-bottom: 3px solid #66bb6a;
+    }
+    table.sudoku input {
+      width: 38px;
+      height: 38px;
+      font-size: 20px;
+      text-align: center;
+      border: none;
+      background: #222;
+      color: #66bb6a;
+      font-weight: bold;
+      outline: none;
+      transition: background-color 0.3s;
+    }
+    table.sudoku input:focus {
+      background-color: #66bb6a;
+      color: #121212;
+    }
+    table.sudoku input.error {
+      background: #f44336;
+      color: white;
+      font-weight: bold;
+    }
+    button.check-btn {
+      display: block;
+      margin: 15px auto 30px;
+      padding: 8px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #66bb6a;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    button.check-btn:hover {
+      background: #57a05a;
+    }
+    p.instructions {
+      text-align: center;
+      margin-top: 0;
+      color: #ccc;
+    }
+    /* Schulte Table styles */
+    .schulte-table {
+      display: grid;
+      grid-template-columns: repeat(5, 60px);
+      grid-template-rows: repeat(5, 60px);
+      gap: 10px;
+      justify-content: center;
+      margin: 20px auto;
+      user-select: none;
+    }
+    .schulte-cell {
+      background: #333;
+      border: 2px solid #66bb6a;
+      color: #66bb6a;
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .schulte-cell.correct {
+      background-color: #66bb6a;
+      color: #121212;
+      cursor: default;
+    }
+    .schulte-cell.disabled {
+      pointer-events: none;
+      opacity: 0.6;
+      cursor: default;
+    }
+    #schulte-timer {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 10px;
+      color: #66bb6a;
+      user-select: none;
+    }
+    #schulte-reset {
+      display: block;
+      margin: 15px auto 30px;
+      padding: 8px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #66bb6a;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    #schulte-reset:hover {
+      background: #57a05a;
+    }
+    #schulte-message {
+      text-align: center;
+      font-size: 18px;
+      color: #66bb6a;
+      margin-top: 10px;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -158,49 +192,26 @@
   <h1>Games Hub</h1>
 </header>
 <nav>
-  <button id="tab-pong" class="active">Shuttle Table</button>
-  <button id="tab-chess">Chess</button>
+  <button id="tab-pong" class="active">Pong</button>
+  <button id="tab-schulte">Schulte Table</button>
   <button id="tab-sudoku">Sudoku</button>
 </nav>
 
 <main>
-  <!-- Shuttle Table Pong -->
+  <!-- Pong -->
   <section id="pong-section" class="active">
-    <h2 style="text-align:center;">Simple Shuttle Table Game (Pong)</h2>
-    <canvas id="pong" width="600" height="400"></canvas>
+    <h2 style="text-align:center;">Simple Pong Game</h2>
+    <canvas id="pong" class="pong" width="600" height="400"></canvas>
     <p class="instructions">Use <b>W/S</b> for left paddle and <b>Up/Down Arrows</b> for right paddle.</p>
   </section>
 
-  <!-- Chess -->
-  <section id="chess-section">
-    <h2 style="text-align:center;">Basic Chess Board</h2>
-    <p style="text-align:center; color:#ccc; font-size:14px; margin-bottom:0;">
-      Use arrow keys to move selection. Press <b>Enter</b> to select/move piece.
-    </p>
-    <table class="chess" aria-label="Chess board" tabindex="0">
-      <tbody>
-        <tr>
-          <td class="black">&#9820;</td><td class="white">&#9822;</td><td class="black">&#9821;</td><td class="white">&#9819;</td>
-          <td class="black">&#9818;</td><td class="white">&#9821;</td><td class="black">&#9822;</td><td class="white">&#9820;</td>
-        </tr>
-        <tr>
-          <td class="white">&#9823;</td><td class="black">&#9823;</td><td class="white">&#9823;</td><td class="black">&#9823;</td>
-          <td class="white">&#9823;</td><td class="black">&#9823;</td><td class="white">&#9823;</td><td class="black">&#9823;</td>
-        </tr>
-        <tr><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td></tr>
-        <tr><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td></tr>
-        <tr><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td></tr>
-        <tr><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td><td class="white"></td><td class="black"></td></tr>
-        <tr>
-          <td class="black">&#9817;</td><td class="white">&#9817;</td><td class="black">&#9817;</td><td class="white">&#9817;</td>
-          <td class="black">&#9817;</td><td class="white">&#9817;</td><td class="black">&#9817;</td><td class="white">&#9817;</td>
-        </tr>
-        <tr>
-          <td class="white">&#9814;</td><td class="black">&#9816;</td><td class="white">&#9815;</td><td class="black">&#9813;</td>
-          <td class="white">&#9812;</td><td class="black">&#9815;</td><td class="white">&#9816;</td><td class="black">&#9814;</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Schulte Table -->
+  <section id="schulte-section">
+    <h2 style="text-align:center;">Schulte Table Game</h2>
+    <div class="schulte-table" id="schulte-table"></div>
+    <div id="schulte-timer">Time: 0.00 s</div>
+    <button id="schulte-reset">Restart</button>
+    <div id="schulte-message"></div>
   </section>
 
   <!-- Sudoku -->
@@ -216,15 +227,15 @@
 </main>
 
 <script>
-// Tab switching logic
+// --- Tab Switching ---
 const tabs = {
   pong: document.getElementById('tab-pong'),
-  chess: document.getElementById('tab-chess'),
+  schulte: document.getElementById('tab-schulte'),
   sudoku: document.getElementById('tab-sudoku'),
 };
 const sections = {
   pong: document.getElementById('pong-section'),
-  chess: document.getElementById('chess-section'),
+  schulte: document.getElementById('schulte-section'),
   sudoku: document.getElementById('sudoku-section'),
 };
 function activateTab(name) {
@@ -234,71 +245,73 @@ function activateTab(name) {
   }
 }
 tabs.pong.onclick = () => activateTab('pong');
-tabs.chess.onclick = () => activateTab('chess');
+tabs.schulte.onclick = () => activateTab('schulte');
 tabs.sudoku.onclick = () => activateTab('sudoku');
 
-// ------------------
-// Pong Game code (unchanged)
-// ------------------
-const canvas = document.getElementById('pong');
-const ctx = canvas.getContext('2d');
 
-const paddleWidth = 10, paddleHeight = 100;
-let leftPaddleY = canvas.height/2 - paddleHeight/2;
-let rightPaddleY = canvas.height/2 - paddleHeight/2;
-const paddleSpeed = 8;
+// --- Pong Game ---
+(function(){
+  const canvas = document.getElementById('pong');
+  const ctx = canvas.getContext('2d');
+  const paddleWidth = 10, paddleHeight = 100;
+  let leftPaddleY = canvas.height/2 - paddleHeight/2;
+  let rightPaddleY = canvas.height/2 - paddleHeight/2;
+  const paddleSpeed = 8;
 
-const ballRadius = 10;
-let ballX = canvas.width/2;
-let ballY = canvas.height/2;
-let ballSpeedX = 5;
-let ballSpeedY = 3;
+  const ballRadius = 10;
+  let ballX = canvas.width/2;
+  let ballY = canvas.height/2;
+  let ballSpeedX = 5;
+  let ballSpeedY = 3;
 
-const keys = {};
+  const keys = {};
 
-document.addEventListener('keydown', e => { keys[e.key] = true; });
-document.addEventListener('keyup', e => { keys[e.key] = false; });
+  document.addEventListener('keydown', e => { keys[e.key.toLowerCase()] = true; });
+  document.addEventListener('keyup', e => { keys[e.key.toLowerCase()] = false; });
 
-function drawRect(x, y, w, h, color) {
-  ctx.fillStyle = color;
-  ctx.fillRect(x, y, w, h);
-}
-
-function drawCircle(x, y, r, color) {
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.arc(x, y, r, 0, Math.PI*2);
-  ctx.fill();
-}
-
-function drawNet() {
-  for(let i = 0; i < canvas.height; i += 30) {
-    drawRect(canvas.width/2 - 1, i, 2, 20, 'white');
+  function drawRect(x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
   }
-}
 
-function update() {
-  if(tabs.pong.classList.contains('active')) {
-    // Move paddles
+  function drawCircle(x, y, r, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  function drawNet() {
+    for(let i = 0; i < canvas.height; i += 30) {
+      drawRect(canvas.width/2 - 1, i, 2, 20, 'white');
+    }
+  }
+
+  function resetBall() {
+    ballX = canvas.width/2;
+    ballY = canvas.height/2;
+    ballSpeedX = -ballSpeedX;
+    ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
+  }
+
+  function update() {
+    if(!sections.pong.classList.contains('active')) return;
+
     if(keys['w'] && leftPaddleY > 0) leftPaddleY -= paddleSpeed;
     if(keys['s'] && leftPaddleY + paddleHeight < canvas.height) leftPaddleY += paddleSpeed;
-    if(keys['ArrowUp'] && rightPaddleY > 0) rightPaddleY -= paddleSpeed;
-    if(keys['ArrowDown'] && rightPaddleY + paddleHeight < canvas.height) rightPaddleY += paddleSpeed;
+    if(keys['arrowup'] && rightPaddleY > 0) rightPaddleY -= paddleSpeed;
+    if(keys['arrowdown'] && rightPaddleY + paddleHeight < canvas.height) rightPaddleY += paddleSpeed;
 
-    // Move ball
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
-    // Top & bottom collision
     if(ballY + ballRadius > canvas.height || ballY - ballRadius < 0) {
       ballSpeedY = -ballSpeedY;
     }
 
-    // Paddle collision
     if(ballX - ballRadius < paddleWidth) {
       if(ballY > leftPaddleY && ballY < leftPaddleY + paddleHeight) {
         ballSpeedX = -ballSpeedX;
-        // Add some speed variation
         const deltaY = ballY - (leftPaddleY + paddleHeight/2);
         ballSpeedY = deltaY * 0.3;
       } else if(ballX - ballRadius < 0) {
@@ -315,238 +328,192 @@ function update() {
       }
     }
   }
-}
 
-function resetBall() {
-  ballX = canvas.width/2;
-  ballY = canvas.height/2;
-  // Random initial direction
-  ballSpeedX = 5 * (Math.random() > 0.5 ? 1 : -1);
-  ballSpeedY = 3 * (Math.random() > 0.5 ? 1 : -1);
-}
-
-function render() {
-  if(tabs.pong.classList.contains('active')) {
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawRect(0, 0, canvas.width, canvas.height, 'black');
     drawNet();
     drawRect(0, leftPaddleY, paddleWidth, paddleHeight, 'white');
     drawRect(canvas.width - paddleWidth, rightPaddleY, paddleWidth, paddleHeight, 'white');
     drawCircle(ballX, ballY, ballRadius, 'white');
   }
-}
 
-function gameLoop() {
-  update();
-  render();
-  requestAnimationFrame(gameLoop);
-}
+  function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
 
-gameLoop();
 
-// ------------------
-// Sudoku code with updated styles (unchanged logic except style)
-// ------------------
+// --- Schulte Table Game ---
+(function(){
+  const container = document.getElementById('schulte-table');
+  const timerElem = document.getElementById('schulte-timer');
+  const resetBtn = document.getElementById('schulte-reset');
+  const messageElem = document.getElementById('schulte-message');
 
-const sudokuTable = document.getElementById('sudoku-table').querySelector('tbody');
+  let numbers = [];
+  let nextNumber = 1;
+  let startTime = null;
+  let timerInterval = null;
 
-const sampleSudoku = [
-  [5, 3, 0, 0, 7, 0, 0, 0, 0],
-  [6, 0, 0, 1, 9, 5, 0, 0, 0],
-  [0, 9, 8, 0, 0, 0, 0, 6, 0],
-  [8, 0, 0, 0, 6, 0, 0, 0, 3],
-  [4, 0, 0, 8, 0, 3, 0, 0, 1],
-  [7, 0, 0, 0, 2, 0, 0, 0, 6],
-  [0, 6, 0, 0, 0, 0, 2, 8, 0],
-  [0, 0, 0, 4, 1, 9, 0, 0, 5],
-  [0, 0, 0, 0, 8, 0, 0, 7, 9]
-];
+  function shuffle(array) {
+    for(let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random()*(i+1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
-// Create Sudoku grid inputs
-function createSudokuGrid() {
-  sudokuTable.innerHTML = '';
-  for(let r = 0; r < 9; r++) {
-    const tr = document.createElement('tr');
-    for(let c = 0; c < 9; c++) {
-      const td = document.createElement('td');
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.maxLength = 1;
-      input.pattern = '[1-9]';
-      input.autocomplete = 'off';
+  function startTimer() {
+    startTime = performance.now();
+    timerInterval = setInterval(() => {
+      const elapsed = (performance.now() - startTime)/1000;
+      timerElem.textContent = 'Time: ' + elapsed.toFixed(2) + ' s';
+    }, 100);
+  }
 
-      if(sampleSudoku[r][c] !== 0) {
-        input.value = sampleSudoku[r][c];
-        input.disabled = true;
-        input.style.color = '#999';
-        input.style.fontWeight = 'normal';
-      } else {
-        input.value = '';
+  function stopTimer() {
+    clearInterval(timerInterval);
+  }
+
+  function resetGame() {
+    numbers = [];
+    for(let i=1; i<=25; i++) numbers.push(i);
+    shuffle(numbers);
+    nextNumber = 1;
+    container.innerHTML = '';
+    messageElem.textContent = '';
+    timerElem.textContent = 'Time: 0.00 s';
+    stopTimer();
+    startTime = null;
+
+    for(let i=0; i<25; i++) {
+      const cell = document.createElement('div');
+      cell.classList.add('schulte-cell');
+      cell.textContent = numbers[i];
+      cell.dataset.number = numbers[i];
+      cell.addEventListener('click', onCellClick);
+      container.appendChild(cell);
+    }
+  }
+
+  function onCellClick(e) {
+    const cell = e.target;
+    const num = Number(cell.dataset.number);
+    if(num === nextNumber) {
+      if(nextNumber === 1) startTimer();
+      cell.classList.add('correct');
+      cell.classList.add('disabled');
+      nextNumber++;
+      if(nextNumber > 25) {
+        stopTimer();
+        messageElem.textContent = `Congrats! Completed in ${timerElem.textContent.slice(6)}`;
       }
-
-      input.addEventListener('input', () => {
-        if(!/^[1-9]$/.test(input.value)) {
-          input.value = '';
-        }
-      });
-
-      td.appendChild(input);
-      tr.appendChild(td);
-    }
-    sudokuTable.appendChild(tr);
-  }
-}
-
-createSudokuGrid();
-
-document.getElementById('check-btn').onclick = () => {
-  checkSudoku();
-};
-
-function checkSudoku() {
-  // clear errors
-  document.querySelectorAll('table.sudoku input').forEach(input => input.classList.remove('error'));
-
-  // read grid
-  const grid = [];
-  const inputs = sudokuTable.querySelectorAll('input');
-  for(let r = 0; r < 9; r++) {
-    grid[r] = [];
-    for(let c = 0; c < 9; c++) {
-      const val = inputs[r * 9 + c].value;
-      grid[r][c] = val === '' ? 0 : parseInt(val);
     }
   }
 
-  // Check rows, cols, boxes for duplicates and missing
-  let valid = true;
+  resetBtn.addEventListener('click', resetGame);
 
-  // Helper: check array for duplicates ignoring zeros
-  function hasDuplicates(arr) {
-    const nums = arr.filter(n => n !== 0);
-    return nums.length !== new Set(nums).size;
-  }
+  resetGame();
+})();
 
-  // Check rows
-  for(let r = 0; r < 9; r++) {
-    if(hasDuplicates(grid[r])) valid = false;
-  }
 
-  // Check cols
-  for(let c = 0; c < 9; c++) {
-    const col = [];
-    for(let r = 0; r < 9; r++) col.push(grid[r][c]);
-    if(hasDuplicates(col)) valid = false;
-  }
+// --- Sudoku Game ---
+// For brevity, using simple 9x9 sudoku with very simple check logic.
+(function(){
+  const sudokuTable = document.getElementById('sudoku-table').querySelector('tbody');
+  const checkBtn = document.getElementById('check-btn');
 
-  // Check boxes
-  for(let br = 0; br < 3; br++) {
-    for(let bc = 0; bc < 3; bc++) {
-      const box = [];
-      for(let r = 0; r < 3; r++) {
-        for(let c = 0; c < 3; c++) {
-          box.push(grid[br*3 + r][bc*3 + c]);
+  // Simple sudoku puzzle with zeros for blanks
+  const puzzle = [
+    [5,3,0, 0,7,0, 0,0,0],
+    [6,0,0, 1,9,5, 0,0,0],
+    [0,9,8, 0,0,0, 0,6,0],
+
+    [8,0,0, 0,6,0, 0,0,3],
+    [4,0,0, 8,0,3, 0,0,1],
+    [7,0,0, 0,2,0, 0,0,6],
+
+    [0,6,0, 0,0,0, 2,8,0],
+    [0,0,0, 4,1,9, 0,0,5],
+    [0,0,0, 0,8,0, 0,7,9]
+  ];
+
+  // Solution for checking (not validating full sudoku, just matching this)
+  const solution = [
+    [5,3,4, 6,7,8, 9,1,2],
+    [6,7,2, 1,9,5, 3,4,8],
+    [1,9,8, 3,4,2, 5,6,7],
+
+    [8,5,9, 7,6,1, 4,2,3],
+    [4,2,6, 8,5,3, 7,9,1],
+    [7,1,3, 9,2,4, 8,5,6],
+
+    [9,6,1, 5,3,7, 2,8,4],
+    [2,8,7, 4,1,9, 6,3,5],
+    [3,4,5, 2,8,6, 1,7,9]
+  ];
+
+  function buildGrid() {
+    sudokuTable.innerHTML = '';
+    for(let r=0; r<9; r++) {
+      const tr = document.createElement('tr');
+      for(let c=0; c<9; c++) {
+        const td = document.createElement('td');
+        const val = puzzle[r][c];
+        if(val !== 0) {
+          td.textContent = val;
+          td.style.color = '#bbb';
+        } else {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.maxLength = 1;
+          input.dataset.row = r;
+          input.dataset.col = c;
+          input.addEventListener('input', e => {
+            e.target.value = e.target.value.replace(/[^1-9]/g,'');
+          });
+          td.appendChild(input);
         }
+        tr.appendChild(td);
       }
-      if(hasDuplicates(box)) valid = false;
+      sudokuTable.appendChild(tr);
     }
   }
 
-  if(!valid) {
-    // Highlight errors
-    // Mark inputs that violate Sudoku rules
-    for(let r = 0; r < 9; r++) {
-      for(let c = 0; c < 9; c++) {
-        const val = grid[r][c];
-        if(val === 0) continue;
+  function checkSudoku() {
+    let allCorrect = true;
+    // Clear previous errors
+    sudokuTable.querySelectorAll('input').forEach(input => input.classList.remove('error'));
 
-        // Check row
-        for(let cc = 0; cc < 9; cc++) {
-          if(cc !== c && grid[r][cc] === val) {
-            sudokuTable.querySelectorAll('input')[r * 9 + c].classList.add('error');
-            sudokuTable.querySelectorAll('input')[r * 9 + cc].classList.add('error');
+    for(let r=0; r<9; r++) {
+      for(let c=0; c<9; c++) {
+        const val = puzzle[r][c];
+        if(val === 0) {
+          const input = sudokuTable.querySelector(`input[data-row="${r}"][data-col="${c}"]`);
+          const userVal = Number(input.value);
+          if(userVal !== solution[r][c]) {
+            input.classList.add('error');
+            allCorrect = false;
           }
         }
-        // Check column
-        for(let rr = 0; rr < 9; rr++) {
-          if(rr !== r && grid[rr][c] === val) {
-            sudokuTable.querySelectorAll('input')[r * 9 + c].classList.add('error');
-            sudokuTable.querySelectorAll('input')[rr * 9 + c].classList.add('error');
-          }
-        }
-        // Check box
-        const boxStartRow = Math.floor(r/3)*3;
-        const boxStartCol = Math.floor(c/3)*3;
-        for(let rr = boxStartRow; rr < boxStartRow + 3; rr++) {
-          for(let cc = boxStartCol; cc < boxStartCol + 3; cc++) {
-            if((rr !== r || cc !== c) && grid[rr][cc] === val) {
-              sudokuTable.querySelectorAll('input')[r * 9 + c].classList.add('error');
-              sudokuTable.querySelectorAll('input')[rr * 9 + cc].classList.add('error');
-            }
-          }
-        }
       }
     }
-    alert("There are errors in the Sudoku grid. Please fix highlighted cells.");
-  } else {
-    alert("Sudoku looks good so far!");
-  }
-}
-
-// ------------------
-// Chess board keyboard navigation & move
-// ------------------
-
-const chessTable = document.querySelector('table.chess');
-const chessCells = [...chessTable.querySelectorAll('td')];
-
-let selectedCellIndex = 0;
-let movingPieceIndex = null; // index of piece selected to move
-
-// Helper: get row/col from index
-function indexToRowCol(i) {
-  return { row: Math.floor(i / 8), col: i % 8 };
-}
-function rowColToIndex(r,c) {
-  return r * 8 + c;
-}
-
-// Highlight selection
-function updateSelection() {
-  chessCells.forEach(cell => cell.classList.remove('selected', 'possible-move'));
-  chessCells[selectedCellIndex].classList.add('selected');
-}
-
-updateSelection();
-
-chessTable.addEventListener('keydown', e => {
-  let {row, col} = indexToRowCol(selectedCellIndex);
-  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)) {
-    e.preventDefault();
-    if(e.key === 'ArrowUp') row = (row + 7) % 8;
-    else if(e.key === 'ArrowDown') row = (row + 1) % 8;
-    else if(e.key === 'ArrowLeft') col = (col + 7) % 8;
-    else if(e.key === 'ArrowRight') col = (col + 1) % 8;
-    selectedCellIndex = rowColToIndex(row, col);
-    updateSelection();
-  } else if(e.key === 'Enter') {
-    e.preventDefault();
-    if(movingPieceIndex === null) {
-      // Select piece if exists
-      if(chessCells[selectedCellIndex].textContent.trim() !== '') {
-        movingPieceIndex = selectedCellIndex;
-        chessCells[movingPieceIndex].classList.add('possible-move');
-      }
+    if(allCorrect) {
+      alert("Congratulations! Sudoku solved correctly.");
     } else {
-      // Move piece if destination different and allowed (simple move, no rules)
-      if(selectedCellIndex !== movingPieceIndex) {
-        chessCells[selectedCellIndex].textContent = chessCells[movingPieceIndex].textContent;
-        chessCells[movingPieceIndex].textContent = '';
-      }
-      chessCells[movingPieceIndex].classList.remove('possible-move');
-      movingPieceIndex = null;
+      alert("Some entries are incorrect. Please try again.");
     }
   }
-});
+
+  checkBtn.addEventListener('click', checkSudoku);
+
+  buildGrid();
+})();
+
 </script>
 
 </body>
